@@ -34,11 +34,9 @@ module Rdkafka
     def close
       return if closed?
       ObjectSpace.undefine_finalizer(self)
-
-      @native_kafka.synchronize do |inner|
+      @native_kafka.with_inner do |inner|
         Rdkafka::Bindings.rd_kafka_consumer_close(inner)
       end
-
       @native_kafka.close
     end
 
