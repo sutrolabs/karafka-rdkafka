@@ -1,3 +1,7 @@
+# 0.12.1
+* Bumps librdkafka to 2.0.2 (lmaia)
+* Add support for adding more partitions via Admin API
+
 # 0.12.0
 * Bumps librdkafka to 1.9.0
 
