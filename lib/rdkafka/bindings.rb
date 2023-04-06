@@ -44,7 +44,7 @@ module Rdkafka
     attach_function :rd_kafka_memberid, [:pointer], :string, blocking: true
     attach_function :rd_kafka_clusterid, [:pointer], :string, blocking: true
     attach_function :rd_kafka_metadata, [:pointer, :int, :pointer, :pointer, :int], :int, blocking: true
-    attach_function :rd_kafka_metadata_destroy, [:pointer], :void
+    attach_function :rd_kafka_metadata_destroy, [:pointer], :void, blocking: true
 
     # Message struct
 
@@ -238,7 +238,7 @@ module Rdkafka
 
     # Stats
 
-    attach_function :rd_kafka_query_watermark_offsets, [:pointer, :string, :int, :pointer, :pointer, :int], :int, blocking: true
+    attach_function :rd_kafka_query_watermark_offsets, [:pointer, :string, :int, :pointer, :pointer, :int], :int
 
     # Producer
 

@@ -8,18 +8,17 @@ describe Rdkafka::NativeKafka do
   let(:closing) { false }
   let(:thread) { double(Thread) }
 
-  subject(:client) { described_class.new(native) }
+  subject(:client) { described_class.new(native, run_polling_thread: true) }
 
   before do
-    allow(Rdkafka::Bindings).to receive(:rd_kafka_poll).with(instance_of(FFI::Pointer), 250).and_call_original
-    allow(Rdkafka::Bindings).to receive(:rd_kafka_outq_len).with(instance_of(FFI::Pointer)).and_return(0).and_call_original
-    allow(Rdkafka::Bindings).to receive(:rd_kafka_destroy_flags)
     allow(Thread).to receive(:new).and_return(thread)
 
     allow(thread).to receive(:[]=).with(:closing, anything)
     allow(thread).to receive(:join)
     allow(thread).to receive(:abort_on_exception=).with(anything)
   end
+
+  after { client.close }
 
   context "defaults" do
     it "sets the thread to abort on exception" do
@@ -55,6 +54,12 @@ describe Rdkafka::NativeKafka do
     end
 
     context "and attempt to close" do
+      it "calls the `destroy` binding" do
+        expect(Rdkafka::Bindings).to receive(:rd_kafka_destroy).with(native).and_call_original
+
+        client.close
+      end
+
       it "indicates to the polling thread that it is closing" do
         expect(thread).to receive(:[]=).with(:closing, true)
 
