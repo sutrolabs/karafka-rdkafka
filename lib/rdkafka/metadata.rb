@@ -14,7 +14,7 @@ module Rdkafka
       topic_flag = topic_name.nil? ? 1 : 0
 
       # Retrieve the Metadata
-      result = Rdkafka::Bindings.rd_kafka_metadata(native_client, topic_flag, native_topic, ptr, 250)
+      result = Rdkafka::Bindings.rd_kafka_metadata(native_client, topic_flag, native_topic, ptr, 2_000)
 
       # Error Handling
       raise Rdkafka::RdkafkaError.new(result) unless result.zero?

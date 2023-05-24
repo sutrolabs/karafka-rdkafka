@@ -1,3 +1,6 @@
+# 0.12.2
+* Increase the metadata default timeout from 250ms to 2 seconds. This should allow for working with remote clusters.
+
 # 0.12.1
 * Bumps librdkafka to 2.0.2 (lmaia)
 * Add support for adding more partitions via Admin API
