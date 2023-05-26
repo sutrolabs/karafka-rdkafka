@@ -1,3 +1,6 @@
+# 0.12.3
+- Include backtrace in non-raised binded errors.
+
 # 0.12.2
 * Increase the metadata default timeout from 250ms to 2 seconds. This should allow for working with remote clusters.
 
