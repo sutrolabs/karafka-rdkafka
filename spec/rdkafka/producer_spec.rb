@@ -30,6 +30,7 @@ describe Rdkafka::Producer do
           expect(report).not_to be_nil
           expect(report.partition).to eq 1
           expect(report.offset).to be >= 0
+          expect(report.topic_name).to eq "produce_test_topic"
           @callback_called = true
         end
 
@@ -113,6 +114,7 @@ describe Rdkafka::Producer do
         expect(called_report.first).not_to be_nil
         expect(called_report.first.partition).to eq 1
         expect(called_report.first.offset).to be >= 0
+        expect(called_report.first.topic_name).to eq "produce_test_topic"
       end
 
       it "should provide handle" do
@@ -448,7 +450,8 @@ describe Rdkafka::Producer do
 
       report_json = JSON.generate(
         "partition" => report.partition,
-        "offset" => report.offset
+        "offset" => report.offset,
+        "topic_name" => report.topic_name
       )
 
       writer.write(report_json)
@@ -460,7 +463,8 @@ describe Rdkafka::Producer do
     report_hash = JSON.parse(reader.read)
     report = Rdkafka::Producer::DeliveryReport.new(
       report_hash["partition"],
-      report_hash["offset"]
+      report_hash["offset"],
+      report_hash["topic_name"]
     )
 
     reader.close
