@@ -394,7 +394,7 @@ module Rdkafka
       tpl = list.to_native_tpl
 
       response = Rdkafka::Bindings.rd_kafka_offsets_for_times(
-        @native_kafka.inner,
+        @native_kafka,
         tpl,
         timeout_ms # timeout
       )
