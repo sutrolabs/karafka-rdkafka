@@ -1,3 +1,7 @@
+## 0.12.4
+- Support time based offset lookups (timflapper)
+- Expose `raw_timeout` in messages.
+
 # 0.12.3
 - Include backtrace in non-raised binded errors.
 - Include topic name in the delivery reports
