@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 require File.expand_path('../../lib/rdkafka/version', __FILE__)
-require "mini_portile2"
 require "fileutils"
 require "open-uri"
 
 task :default => :clean do
   if ENV.fetch('RDKAFKA_EXT_PATH', '').empty?
+    require "mini_portile2"
+
     # Download and compile librdkafka if RDKAFKA_EXT_PATH is not set
     recipe = MiniPortile.new("librdkafka", Rdkafka::LIBRDKAFKA_VERSION)
 
