@@ -39,7 +39,8 @@ task :default => :clean do
     FileUtils.rm_rf File.join(File.dirname(__FILE__), "ports")
   else
     # Otherwise, copy an existing library to ./ext
-    FileUtils.cp(ENV['RDKAFKA_EXT_PATH'], File.dirname(__FILE__))
+    FileUtils.cp(File.join(ENV['RDKAFKA_EXT_PATH'], 'lib', 'librdkafka.dylib'), File.dirname(__FILE__))
+    FileUtils.cp(File.join(ENV['RDKAFKA_EXT_PATH'], 'lib', 'librdkafka++.dylib'), File.dirname(__FILE__))
   end
 end
 
