@@ -37,11 +37,8 @@ task :default => :clean do
     FileUtils.rm_rf File.join(File.dirname(__FILE__), "ports")
   else
     # Otherwise, copy existing libraries to ./ext
-    if recipe.host.include?('darwin')
-      FileUtils.cp(File.join(ENV['RDKAFKA_EXT_PATH'], 'lib', 'librdkafka.dylib'), File.dirname(__FILE__))
-    else
-      FileUtils.cp(File.join(ENV['RDKAFKA_EXT_PATH'], 'lib', 'librdkafka.so'), File.dirname(__FILE__))
-    end
+    FileUtils.cp(File.join(ENV['RDKAFKA_EXT_PATH'], 'lib', 'librdkafka.dylib'), File.dirname(__FILE__))
+    FileUtils.cp(File.join(ENV['RDKAFKA_EXT_PATH'], 'lib', 'librdkafka.so'), File.dirname(__FILE__))
   end
 end
 
