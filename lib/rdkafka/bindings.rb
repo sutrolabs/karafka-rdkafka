@@ -361,9 +361,9 @@ module Rdkafka
     attach_function :rd_kafka_AclBinding_host, [:pointer], :pointer
     attach_function :rd_kafka_AclBinding_operation, [:pointer], :int32
     attach_function :rd_kafka_AclBinding_permission_type, [:pointer], :int32
-    attach_function :rd_kafka_AclBinding_new, [:int32, :pointer, :int32, :pointer, :pointer, :int32, :int32, :pointer, :size_t ], :pointer
+    attach_function :rd_kafka_AclBinding_new, [:int32, :pointer, :int32, :pointer, :pointer, :int32, :int32, :pointer, :size_t ], :pointer, blocking: true
     attach_function :rd_kafka_AclBindingFilter_new, [:int32, :pointer, :int32, :pointer, :pointer, :int32, :int32, :pointer, :size_t ], :pointer
-    attach_function :rd_kafka_AclBinding_destroy, [:pointer], :void
+    attach_function :rd_kafka_AclBinding_destroy, [:pointer], :void, blocking: true
 
     # rd_kafka_ResourceType_t - https://github.com/confluentinc/librdkafka/blob/292d2a66b9921b783f08147807992e603c7af059/src/rdkafka.h#L7307
 

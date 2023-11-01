@@ -80,6 +80,7 @@ module Rdkafka
       create_topic_handle[:pending] = true
       create_topic_handle[:response] = -1
       CreateTopicHandle.register(create_topic_handle)
+
       admin_options_ptr = @native_kafka.with_inner do |inner|
         Rdkafka::Bindings.rd_kafka_AdminOptions_new(inner, Rdkafka::Bindings::RD_KAFKA_ADMIN_OP_CREATETOPICS)
       end
