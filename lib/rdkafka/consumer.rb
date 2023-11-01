@@ -22,14 +22,23 @@ module Rdkafka
       ->(_) { close }
     end
 
+    # @return [String] consumer name
+    def name
+      @name ||= @native_kafka.with_inner do |inner|
+        ::Rdkafka::Bindings.rd_kafka_name(inner)
+      end
+    end
+
     # Close this consumer
     # @return [nil]
     def close
       return if closed?
       ObjectSpace.undefine_finalizer(self)
-      @native_kafka.with_inner do |inner|
+
+      @native_kafka.synchronize do |inner|
         Rdkafka::Bindings.rd_kafka_consumer_close(inner)
       end
+
       @native_kafka.close
     end
 

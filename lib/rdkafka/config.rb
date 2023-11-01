@@ -160,8 +160,11 @@ module Rdkafka
       # Create native client
       kafka = native_kafka(config, :rd_kafka_consumer)
 
+      # Redirect the main queue to the consumer
+      Rdkafka::Bindings.rd_kafka_poll_set_consumer(kafka)
+
       # Return consumer with Kafka client
-      Rdkafka::Consumer.new(Rdkafka::NativeKafka.new(kafka))
+      Rdkafka::Consumer.new(Rdkafka::NativeKafka.new(kafka, run_polling_thread: false))
     end
 
     # Create a producer with this configuration.
@@ -179,9 +182,7 @@ module Rdkafka
       Rdkafka::Bindings.rd_kafka_conf_set_dr_msg_cb(config, Rdkafka::Callbacks::DeliveryCallbackFunction)
       # Return producer with Kafka client
       partitioner_name = self[:partitioner] || self["partitioner"]
-      Rdkafka::Producer.new(Rdkafka::NativeKafka.new(
-        native_kafka(config, :rd_kafka_producer),
-      ), partitioner_name).tap do |producer|
+      Rdkafka::Producer.new(Rdkafka::NativeKafka.new(native_kafka(config, :rd_kafka_producer), run_polling_thread: true), partitioner_name).tap do |producer|
         opaque.producer = producer
       end
     end
@@ -196,7 +197,7 @@ module Rdkafka
       opaque = Opaque.new
       config = native_config(opaque)
       Rdkafka::Bindings.rd_kafka_conf_set_background_event_cb(config, Rdkafka::Callbacks::BackgroundEventCallbackFunction)
-      Rdkafka::Admin.new(Rdkafka::NativeKafka.new(native_kafka(config, :rd_kafka_producer)))
+      Rdkafka::Admin.new(Rdkafka::NativeKafka.new(native_kafka(config, :rd_kafka_producer), run_polling_thread: true))
     end
 
     # Error that is returned by the underlying rdkafka error if an invalid configuration option is present.
@@ -284,18 +285,18 @@ module Rdkafka
       producer.call_delivery_callback(delivery_report, delivery_handle) if producer
     end
 
-    def call_on_partitions_assigned(consumer, list)
+    def call_on_partitions_assigned(list)
       return unless consumer_rebalance_listener
       return unless consumer_rebalance_listener.respond_to?(:on_partitions_assigned)
 
-      consumer_rebalance_listener.on_partitions_assigned(consumer, list)
+      consumer_rebalance_listener.on_partitions_assigned(list)
     end
 
-    def call_on_partitions_revoked(consumer, list)
+    def call_on_partitions_revoked(list)
       return unless consumer_rebalance_listener
       return unless consumer_rebalance_listener.respond_to?(:on_partitions_revoked)
 
-      consumer_rebalance_listener.on_partitions_revoked(consumer, list)
+      consumer_rebalance_listener.on_partitions_revoked(list)
     end
   end
 end

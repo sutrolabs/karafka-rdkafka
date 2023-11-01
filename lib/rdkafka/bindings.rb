@@ -35,16 +35,17 @@ module Rdkafka
 
     # Polling
 
-    attach_function :rd_kafka_flush, [:pointer, :int], :void, blocking: true
+    attach_function :rd_kafka_flush, [:pointer, :int], :int, blocking: true
     attach_function :rd_kafka_poll, [:pointer, :int], :void, blocking: true
     attach_function :rd_kafka_outq_len, [:pointer], :int, blocking: true
 
     # Metadata
 
+    attach_function :rd_kafka_name, [:pointer], :string, blocking: true
     attach_function :rd_kafka_memberid, [:pointer], :string, blocking: true
     attach_function :rd_kafka_clusterid, [:pointer], :string, blocking: true
     attach_function :rd_kafka_metadata, [:pointer, :int, :pointer, :pointer, :int], :int, blocking: true
-    attach_function :rd_kafka_metadata_destroy, [:pointer], :void
+    attach_function :rd_kafka_metadata_destroy, [:pointer], :void, blocking: true
 
     # Message struct
 
@@ -222,14 +223,12 @@ module Rdkafka
       return unless opaque
 
       tpl = Rdkafka::Consumer::TopicPartitionList.from_native_tpl(partitions_ptr).freeze
-      consumer = Rdkafka::Consumer.new(client_ptr)
-
       begin
         case code
         when RD_KAFKA_RESP_ERR__ASSIGN_PARTITIONS
-          opaque.call_on_partitions_assigned(consumer, tpl)
+          opaque.call_on_partitions_assigned(tpl)
         when RD_KAFKA_RESP_ERR__REVOKE_PARTITIONS
-          opaque.call_on_partitions_revoked(consumer, tpl)
+          opaque.call_on_partitions_revoked(tpl)
         end
       rescue Exception => err
         Rdkafka::Config.logger.error("Unhandled exception: #{err.class} - #{err.message}")
@@ -238,7 +237,7 @@ module Rdkafka
 
     # Stats
 
-    attach_function :rd_kafka_query_watermark_offsets, [:pointer, :string, :int, :pointer, :pointer, :int], :int, blocking: true
+    attach_function :rd_kafka_query_watermark_offsets, [:pointer, :string, :int, :pointer, :pointer, :int], :int
 
     # Producer
 
