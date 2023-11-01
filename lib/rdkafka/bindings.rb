@@ -328,29 +328,29 @@ module Rdkafka
     RD_KAFKA_ADMIN_OP_CREATEACLS     = 9
     RD_KAFKA_EVENT_CREATEACLS_RESULT = 1024
 
-    attach_function :rd_kafka_CreateAcls, [:pointer, :pointer, :size_t, :pointer, :pointer], :void
-    attach_function :rd_kafka_event_CreateAcls_result, [:pointer], :pointer
-    attach_function :rd_kafka_CreateAcls_result_acls, [:pointer, :pointer], :pointer
+    attach_function :rd_kafka_CreateAcls, [:pointer, :pointer, :size_t, :pointer, :pointer], :void, blocking: true
+    attach_function :rd_kafka_event_CreateAcls_result, [:pointer], :pointer, blocking: true
+    attach_function :rd_kafka_CreateAcls_result_acls, [:pointer, :pointer], :pointer, blocking: true
 
     # Delete Acls
 
     RD_KAFKA_ADMIN_OP_DELETEACLS     = 11
     RD_KAFKA_EVENT_DELETEACLS_RESULT = 4096
 
-    attach_function :rd_kafka_DeleteAcls, [:pointer, :pointer, :size_t, :pointer, :pointer], :void
-    attach_function :rd_kafka_event_DeleteAcls_result, [:pointer], :pointer
-    attach_function :rd_kafka_DeleteAcls_result_responses, [:pointer, :pointer], :pointer
-    attach_function :rd_kafka_DeleteAcls_result_response_error, [:pointer], :pointer
-    attach_function :rd_kafka_DeleteAcls_result_response_matching_acls, [:pointer, :pointer], :pointer
+    attach_function :rd_kafka_DeleteAcls, [:pointer, :pointer, :size_t, :pointer, :pointer], :void, blocking: true
+    attach_function :rd_kafka_event_DeleteAcls_result, [:pointer], :pointer, blocking: true
+    attach_function :rd_kafka_DeleteAcls_result_responses, [:pointer, :pointer], :pointer, blocking: true
+    attach_function :rd_kafka_DeleteAcls_result_response_error, [:pointer], :pointer, blocking: true
+    attach_function :rd_kafka_DeleteAcls_result_response_matching_acls, [:pointer, :pointer], :pointer, blocking: true
 
     # Describe Acls
 
     RD_KAFKA_ADMIN_OP_DESCRIBEACLS     = 10
     RD_KAFKA_EVENT_DESCRIBEACLS_RESULT = 2048
 
-    attach_function :rd_kafka_DescribeAcls, [:pointer, :pointer, :pointer, :pointer], :void
-    attach_function :rd_kafka_event_DescribeAcls_result, [:pointer], :pointer
-    attach_function :rd_kafka_DescribeAcls_result_acls, [:pointer, :pointer], :pointer
+    attach_function :rd_kafka_DescribeAcls, [:pointer, :pointer, :pointer, :pointer], :void, blocking: true
+    attach_function :rd_kafka_event_DescribeAcls_result, [:pointer], :pointer, blocking: true
+    attach_function :rd_kafka_DescribeAcls_result_acls, [:pointer, :pointer], :pointer, blocking: true
 
     # Acl Bindings
 
