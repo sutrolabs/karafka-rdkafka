@@ -454,7 +454,6 @@ module Rdkafka
           Rdkafka::Bindings.rd_kafka_DescribeAcls(
             inner,
             describe_acl_ptr,
-            1,
             admin_options_ptr,
             queue_ptr
           )
