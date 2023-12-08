@@ -4,8 +4,8 @@ require "spec_helper"
 
 describe Rdkafka::Admin::CreateAclReport do
   subject { Rdkafka::Admin::CreateAclReport.new(
-      rdkafka_response: Rdkafka::Bindings::RD_KAFKA_RESP_ERR_NO_ERROR,
-      rdkafka_response_string: FFI::MemoryPointer.from_string("")
+    rdkafka_response: Rdkafka::Bindings::RD_KAFKA_RESP_ERR_NO_ERROR,
+    rdkafka_response_string: FFI::MemoryPointer.from_string("")
   )}
 
   it "should get RD_KAFKA_RESP_ERR_NO_ERROR " do

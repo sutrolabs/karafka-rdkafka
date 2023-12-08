@@ -19,26 +19,26 @@ describe Rdkafka::Consumer::Headers do
 
       expect(Rdkafka::Bindings).to \
         receive(:rd_kafka_header_get_all)
-          .with(headers_ptr, 0, anything, anything, anything) do |_, _, name_ptrptr, value_ptrptr, size_ptr|
-              expect(name_ptrptr).to receive(:read_pointer).and_return(double("pointer 0", read_string_to_null: headers.keys[0]))
-              expect(size_ptr).to receive(:[]).with(:value).and_return(headers.keys[0].size)
-              expect(value_ptrptr).to receive(:read_pointer).and_return(double("value pointer 0", read_string: headers.values[0]))
-              Rdkafka::Bindings::RD_KAFKA_RESP_ERR_NO_ERROR
-            end
+                                             .with(headers_ptr, 0, anything, anything, anything) do |_, _, name_ptrptr, value_ptrptr, size_ptr|
+        expect(name_ptrptr).to receive(:read_pointer).and_return(double("pointer 0", read_string_to_null: headers.keys[0]))
+        expect(size_ptr).to receive(:[]).with(:value).and_return(headers.keys[0].size)
+        expect(value_ptrptr).to receive(:read_pointer).and_return(double("value pointer 0", read_string: headers.values[0]))
+        Rdkafka::Bindings::RD_KAFKA_RESP_ERR_NO_ERROR
+      end
 
       expect(Rdkafka::Bindings).to \
         receive(:rd_kafka_header_get_all)
-          .with(headers_ptr, 1, anything, anything, anything) do |_, _, name_ptrptr, value_ptrptr, size_ptr|
-              expect(name_ptrptr).to receive(:read_pointer).and_return(double("pointer 1", read_string_to_null: headers.keys[1]))
-              expect(size_ptr).to receive(:[]).with(:value).and_return(headers.keys[1].size)
-              expect(value_ptrptr).to receive(:read_pointer).and_return(double("value pointer 1", read_string: headers.values[1]))
-              Rdkafka::Bindings::RD_KAFKA_RESP_ERR_NO_ERROR
-            end
+                                             .with(headers_ptr, 1, anything, anything, anything) do |_, _, name_ptrptr, value_ptrptr, size_ptr|
+        expect(name_ptrptr).to receive(:read_pointer).and_return(double("pointer 1", read_string_to_null: headers.keys[1]))
+        expect(size_ptr).to receive(:[]).with(:value).and_return(headers.keys[1].size)
+        expect(value_ptrptr).to receive(:read_pointer).and_return(double("value pointer 1", read_string: headers.values[1]))
+        Rdkafka::Bindings::RD_KAFKA_RESP_ERR_NO_ERROR
+      end
 
       expect(Rdkafka::Bindings).to \
         receive(:rd_kafka_header_get_all)
-          .with(headers_ptr, 2, anything, anything, anything)
-          .and_return(Rdkafka::Bindings::RD_KAFKA_RESP_ERR__NOENT)
+                                             .with(headers_ptr, 2, anything, anything, anything)
+                                             .and_return(Rdkafka::Bindings::RD_KAFKA_RESP_ERR__NOENT)
     end
 
     subject { described_class.from_native(native_message) }

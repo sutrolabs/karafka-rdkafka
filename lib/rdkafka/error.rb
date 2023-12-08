@@ -41,10 +41,10 @@ module Rdkafka
     # @return [String]
     def to_s
       message_prefix_part = if message_prefix
-                       "#{message_prefix} - "
-                     else
-                       ''
-                     end
+                              "#{message_prefix} - "
+                            else
+                              ''
+                            end
       "#{message_prefix_part}#{Rdkafka::Bindings.rd_kafka_err2str(@rdkafka_response)} (#{code})"
     end
 
@@ -56,7 +56,7 @@ module Rdkafka
 
     # Error comparison
     def ==(another_error)
-       another_error.is_a?(self.class) && (self.to_s == another_error.to_s)
+      another_error.is_a?(self.class) && (self.to_s == another_error.to_s)
     end
   end
 

@@ -19,8 +19,8 @@ module Rdkafka
 
       def raise_error
         raise RdkafkaError.new(
-            self[:response],
-            broker_message: self[:response_string].read_string
+          self[:response],
+          broker_message: self[:response_string].read_string
         )
       end
     end

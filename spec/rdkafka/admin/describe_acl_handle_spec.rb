@@ -27,7 +27,7 @@ describe Rdkafka::Admin::DescribeAclHandle do
       256
     )
     if describe_acl_ptr.null?
-       raise Rdkafka::Config::ConfigError.new(error_buffer.read_string)
+      raise Rdkafka::Config::ConfigError.new(error_buffer.read_string)
     end
     pointer_array = [describe_acl_ptr]
     describe_acls_array_ptr = FFI::MemoryPointer.new(:pointer)

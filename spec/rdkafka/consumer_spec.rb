@@ -870,8 +870,8 @@ describe Rdkafka::Consumer do
       all_yields = []
       expect(consumer)
         .to receive(:poll)
-        .exactly(10).times
-        .and_return(new_message)
+              .exactly(10).times
+              .and_return(new_message)
       consumer.each_batch(max_items: 10) do |batch|
         all_yields << batch
         break if all_yields.flatten.size >= 10
@@ -887,7 +887,7 @@ describe Rdkafka::Consumer do
       poll_count = 0
       expect(consumer)
         .to receive(:poll)
-        .at_least(3).times do
+              .at_least(3).times do
         poll_count = poll_count + 1
         if poll_count > 2
           sleep 0.1
@@ -920,9 +920,9 @@ describe Rdkafka::Consumer do
       yielded_batches = []
       expect(consumer)
         .to receive(:poll)
-        .with(anything)
-        .exactly(20).times
-        .and_return(new_message)
+              .with(anything)
+              .exactly(20).times
+              .and_return(new_message)
 
       consumer.each_batch(max_items: 10, timeout_ms: 500) do |batch|
         yielded_batches << batch
@@ -937,9 +937,9 @@ describe Rdkafka::Consumer do
       yielded_batches = []
       expect(consumer)
         .to receive(:poll)
-        .with(anything)
-        .exactly(20).times
-        .and_return(new_message)
+              .with(anything)
+              .exactly(20).times
+              .and_return(new_message)
 
       consumer.each_batch(bytes_threshold: message_payload.size * 4, timeout_ms: 500) do |batch|
         yielded_batches << batch
@@ -966,17 +966,17 @@ describe Rdkafka::Consumer do
         poll_count = 0
         expect(consumer)
           .to receive(:poll)
-          .with(anything)
-          .exactly(3).times
-          .and_wrap_original do |method, *args|
-              poll_count = poll_count + 1
-              if poll_count == 3
-                raise Rdkafka::RdkafkaError.new(27,
-                    "partitions ... too ... heavy ... must ... rebalance")
-              else
-                new_message
-              end
+                .with(anything)
+                .exactly(3).times
+                .and_wrap_original do |method, *args|
+          poll_count = poll_count + 1
+          if poll_count == 3
+            raise Rdkafka::RdkafkaError.new(27,
+                                            "partitions ... too ... heavy ... must ... rebalance")
+          else
+            new_message
           end
+        end
         expect {
           consumer.each_batch(max_items: 30, yield_on_error: true) do |batch, pending_error|
             batches_yielded << batch
@@ -1010,17 +1010,17 @@ describe Rdkafka::Consumer do
         poll_count = 0
         expect(consumer)
           .to receive(:poll)
-          .with(anything)
-          .exactly(3).times
-          .and_wrap_original do |method, *args|
-              poll_count = poll_count + 1
-              if poll_count == 3
-                raise Rdkafka::RdkafkaError.new(27,
-                    "partitions ... too ... heavy ... must ... rebalance")
-              else
-                new_message
-              end
+                .with(anything)
+                .exactly(3).times
+                .and_wrap_original do |method, *args|
+          poll_count = poll_count + 1
+          if poll_count == 3
+            raise Rdkafka::RdkafkaError.new(27,
+                                            "partitions ... too ... heavy ... must ... rebalance")
+          else
+            new_message
           end
+        end
         expect {
           consumer.each_batch(max_items: 30, yield_on_error: false) do |batch, pending_error|
             batches_yielded << batch
@@ -1152,9 +1152,9 @@ describe Rdkafka::Consumer do
         notify_listener(listener)
 
         expect(listener.queue).to eq([
-          [:assign, "consume_test_topic", 0, 1, 2],
-          [:revoke, "consume_test_topic", 0, 1, 2]
-        ])
+                                       [:assign, "consume_test_topic", 0, 1, 2],
+                                       [:revoke, "consume_test_topic", 0, 1, 2]
+                                     ])
       end
     end
 
@@ -1188,16 +1188,16 @@ describe Rdkafka::Consumer do
 
     # Affected methods and a non-invalid set of parameters for the method
     {
-        :subscribe               => [ nil ],
-        :unsubscribe             => nil,
-        :each_batch              => nil,
-        :pause                   => [ nil ],
-        :resume                  => [ nil ],
-        :subscription            => nil,
-        :assign                  => [ nil ],
-        :assignment              => nil,
-        :committed               => [],
-        :query_watermark_offsets => [ nil, nil ]
+      :subscribe               => [ nil ],
+      :unsubscribe             => nil,
+      :each_batch              => nil,
+      :pause                   => [ nil ],
+      :resume                  => [ nil ],
+      :subscription            => nil,
+      :assign                  => [ nil ],
+      :assignment              => nil,
+      :committed               => [],
+      :query_watermark_offsets => [ nil, nil ]
     }.each do |method, args|
       it "raises an exception if #{method} is called" do
         expect {
@@ -1271,9 +1271,9 @@ describe Rdkafka::Consumer do
       end
 
       expect(listener.queue).to eq([
-        [:assign, "consume_test_topic", 0, 1, 2],
-        [:revoke, "consume_test_topic", 0, 1, 2]
-      ])
+                                     [:assign, "consume_test_topic", 0, 1, 2],
+                                     [:revoke, "consume_test_topic", 0, 1, 2]
+                                   ])
     end
   end
 end

@@ -78,10 +78,10 @@ module Rdkafka
         @result_error = Rdkafka::Bindings.rd_kafka_error_code(rd_kafka_error_pointer)
         @error_string = Rdkafka::Bindings.rd_kafka_error_string(rd_kafka_error_pointer)
         if @result_error == 0
-           # Get the number of matching acls
-           pointer_to_size_t = FFI::MemoryPointer.new(:int32)
-           @matching_acls = Rdkafka::Bindings.rd_kafka_DeleteAcls_result_response_matching_acls(acl_result_pointer, pointer_to_size_t)
-           @matching_acls_count = pointer_to_size_t.read_int
+          # Get the number of matching acls
+          pointer_to_size_t = FFI::MemoryPointer.new(:int32)
+          @matching_acls = Rdkafka::Bindings.rd_kafka_DeleteAcls_result_response_matching_acls(acl_result_pointer, pointer_to_size_t)
+          @matching_acls_count = pointer_to_size_t.read_int
         end
       end
 
@@ -115,7 +115,7 @@ module Rdkafka
 
     # FFI Function used for Create Topic and Delete Topic callbacks
     BackgroundEventCallbackFunction = FFI::Function.new(
-        :void, [:pointer, :pointer, :pointer]
+      :void, [:pointer, :pointer, :pointer]
     ) do |client_ptr, event_ptr, opaque_ptr|
       BackgroundEventCallback.call(client_ptr, event_ptr, opaque_ptr)
     end
@@ -267,7 +267,7 @@ module Rdkafka
     # FFI Function used for Message Delivery callbacks
 
     DeliveryCallbackFunction = FFI::Function.new(
-        :void, [:pointer, :pointer, :pointer]
+      :void, [:pointer, :pointer, :pointer]
     ) do |client_ptr, message_ptr, opaque_ptr|
       DeliveryCallback.call(client_ptr, message_ptr, opaque_ptr)
     end

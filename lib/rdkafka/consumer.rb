@@ -312,7 +312,7 @@ module Rdkafka
           low,
           high,
           timeout_ms,
-        )
+          )
       end
       if response != 0
         raise Rdkafka::RdkafkaError.new(response, "Error querying watermark offsets for partition #{partition} of #{topic}")

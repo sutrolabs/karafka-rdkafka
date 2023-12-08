@@ -17,8 +17,8 @@ module Rdkafka
       attempt += 1
 
       native_topic = if topic_name
-        Rdkafka::Bindings.rd_kafka_topic_new(native_client, topic_name, nil)
-      end
+                       Rdkafka::Bindings.rd_kafka_topic_new(native_client, topic_name, nil)
+                     end
 
       ptr = FFI::MemoryPointer.new(:pointer)
 

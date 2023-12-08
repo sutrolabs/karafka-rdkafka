@@ -166,7 +166,7 @@ describe Rdkafka::Producer do
       producer.produce(
         payload: "payload",
         key:     "key"
-     )
+      )
     }.to raise_error ArgumentError, /missing keyword: [\:]?topic/
   end
 
@@ -250,7 +250,7 @@ describe Rdkafka::Producer do
       wait_for_message(
         topic: "partitioner_test_topic",
         delivery_report: report,
-      )
+        )
     end
 
     expect(messages[0].partition).not_to eq(messages[2].partition)
@@ -275,7 +275,7 @@ describe Rdkafka::Producer do
       wait_for_message(
         topic: "partitioner_test_topic",
         delivery_report: report,
-      )
+        )
     end
 
     expect(messages[0].partition).to eq 0
@@ -543,8 +543,8 @@ describe Rdkafka::Producer do
 
     # Affected methods and a non-invalid set of parameters for the method
     {
-        :produce         => { topic: nil },
-        :partition_count => nil,
+      :produce         => { topic: nil },
+      :partition_count => nil,
     }.each do |method, args|
       it "raises an exception if #{method} is called" do
         expect {

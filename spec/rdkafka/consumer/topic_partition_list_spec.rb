@@ -36,14 +36,14 @@ describe Rdkafka::Consumer::TopicPartitionList do
     hash = list.to_h
     expect(hash.count).to eq 2
     expect(hash["topic1"]).to eq([
-      Rdkafka::Consumer::Partition.new(0, nil),
-      Rdkafka::Consumer::Partition.new(1, nil),
-      Rdkafka::Consumer::Partition.new(2, nil)
-    ])
+                                   Rdkafka::Consumer::Partition.new(0, nil),
+                                   Rdkafka::Consumer::Partition.new(1, nil),
+                                   Rdkafka::Consumer::Partition.new(2, nil)
+                                 ])
     expect(hash["topic2"]).to eq([
-      Rdkafka::Consumer::Partition.new(0, nil),
-      Rdkafka::Consumer::Partition.new(1, nil)
-    ])
+                                   Rdkafka::Consumer::Partition.new(0, nil),
+                                   Rdkafka::Consumer::Partition.new(1, nil)
+                                 ])
   end
 
   it "should create a new list and add assigned topics as an array" do
@@ -61,14 +61,14 @@ describe Rdkafka::Consumer::TopicPartitionList do
     hash = list.to_h
     expect(hash.count).to eq 2
     expect(hash["topic1"]).to eq([
-      Rdkafka::Consumer::Partition.new(0, nil),
-      Rdkafka::Consumer::Partition.new(1, nil),
-      Rdkafka::Consumer::Partition.new(2, nil)
-    ])
+                                   Rdkafka::Consumer::Partition.new(0, nil),
+                                   Rdkafka::Consumer::Partition.new(1, nil),
+                                   Rdkafka::Consumer::Partition.new(2, nil)
+                                 ])
     expect(hash["topic2"]).to eq([
-      Rdkafka::Consumer::Partition.new(0, nil),
-      Rdkafka::Consumer::Partition.new(1, nil)
-    ])
+                                   Rdkafka::Consumer::Partition.new(0, nil),
+                                   Rdkafka::Consumer::Partition.new(1, nil)
+                                 ])
   end
 
   it "should create a new list and add assigned topics as a count" do
@@ -86,14 +86,14 @@ describe Rdkafka::Consumer::TopicPartitionList do
     hash = list.to_h
     expect(hash.count).to eq 2
     expect(hash["topic1"]).to eq([
-      Rdkafka::Consumer::Partition.new(0, nil),
-      Rdkafka::Consumer::Partition.new(1, nil),
-      Rdkafka::Consumer::Partition.new(2, nil)
-    ])
+                                   Rdkafka::Consumer::Partition.new(0, nil),
+                                   Rdkafka::Consumer::Partition.new(1, nil),
+                                   Rdkafka::Consumer::Partition.new(2, nil)
+                                 ])
     expect(hash["topic2"]).to eq([
-      Rdkafka::Consumer::Partition.new(0, nil),
-      Rdkafka::Consumer::Partition.new(1, nil)
-    ])
+                                   Rdkafka::Consumer::Partition.new(0, nil),
+                                   Rdkafka::Consumer::Partition.new(1, nil)
+                                 ])
   end
 
   it "should create a new list and add topics and partitions with an offset" do
@@ -107,10 +107,10 @@ describe Rdkafka::Consumer::TopicPartitionList do
     hash = list.to_h
     expect(hash.count).to eq 1
     expect(hash["topic1"]).to eq([
-      Rdkafka::Consumer::Partition.new(0, 5),
-      Rdkafka::Consumer::Partition.new(1, 6),
-      Rdkafka::Consumer::Partition.new(2, 7)
-    ])
+                                   Rdkafka::Consumer::Partition.new(0, 5),
+                                   Rdkafka::Consumer::Partition.new(1, 6),
+                                   Rdkafka::Consumer::Partition.new(2, 7)
+                                 ])
   end
 
   describe "#to_s" do

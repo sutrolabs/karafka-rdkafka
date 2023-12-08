@@ -2,8 +2,8 @@
 
 describe Rdkafka::Admin::DeleteTopicReport do
   subject { Rdkafka::Admin::DeleteTopicReport.new(
-      FFI::MemoryPointer.from_string("error string"),
-      FFI::MemoryPointer.from_string("result name")
+    FFI::MemoryPointer.from_string("error string"),
+    FFI::MemoryPointer.from_string("result name")
   )}
 
   it "should get the error string" do
